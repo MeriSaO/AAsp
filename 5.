@@ -1,0 +1,48 @@
+#include <vector>
+#include <iostream>
+
+std::vector<int> sviProstiDoN(int n) {
+    // Ako je n manji od 2, nema prostih brojeva
+    if (n < 2) {
+        return {};
+    }
+
+    // Kreiramo vektor boolova koji predstavlja da li je broj prost
+    std::vector<bool> isProst(n + 1, true);
+    isProst[0] = isProst[1] = false;  // 0 i 1 nisu prosti brojevi
+
+    // Eratostenovo sito
+    for (int i = 2; i * i <= n; ++i) {
+        if (isProst[i]) {
+            // Označavamo sve višekratnike broja i kao složene
+            for (int j = i * i; j <= n; j += i) {
+                isProst[j] = false;
+            }
+        }
+    }
+
+    // Skupljamo sve proste brojeve u vektor
+    std::vector<int> prosti;
+    for (int i = 2; i <= n; ++i) {
+        if (isProst[i]) {
+            prosti.push_back(i);
+        }
+    }
+
+    return prosti;
+}
+
+int main() {
+    int n;
+    std::cout << "Unesite broj n: ";
+    std::cin >> n;
+
+    std::vector<int> prosti = sviProstiDoN(n);
+    std::cout << "Prosti brojevi do " << n << " su: ";
+    for (int p : prosti) {
+        std::cout << p << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
