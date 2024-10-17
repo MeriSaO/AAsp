@@ -1,0 +1,16 @@
+#include <algorithm>  // zbog std::sort
+#include <string>
+
+bool permutacija(std::string s1, std::string s2) {
+    // Ako stringovi nisu iste dužine, odmah vraćamo false
+    if (s1.length() != s2.length()) {
+        return false;
+    }
+
+    // Sortiramo oba stringa
+    std::sort(s1.begin(), s1.end());
+    std::sort(s2.begin(), s2.end());
+
+    // Provjeravamo da li su jednaki nakon sortiranja
+    return s1 == s2;
+}
